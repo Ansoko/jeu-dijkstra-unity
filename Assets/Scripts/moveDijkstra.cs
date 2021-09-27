@@ -5,45 +5,23 @@ using System.IO;
 
 public class moveDijkstra : MonoBehaviour
 {
-    Dictionary<int, Vector3> coordSomm = new Dictionary<int, Vector3>();
-    void Start()
-    {
-        coordSomm.Add(0, new Vector3(1, 4, 0));
-        coordSomm.Add(1, new Vector3(1, 2, 0));
-        coordSomm.Add(2, new Vector3(1, 0, 0));
-        coordSomm.Add(3, new Vector3(1, -2, 0));
-        coordSomm.Add(4, new Vector3(1, -4, 0));
-        coordSomm.Add(5, new Vector3(4, 4, 0));
-        coordSomm.Add(6, new Vector3(4, 2, 0));
-        coordSomm.Add(7, new Vector3(4, 0, 0));
-        coordSomm.Add(8, new Vector3(4, -2, 0));
-        coordSomm.Add(9, new Vector3(4, -4, 0));
-        coordSomm.Add(10, new Vector3(7, 4, 0));
-        coordSomm.Add(11, new Vector3(7, 2, 0));
-        coordSomm.Add(12, new Vector3(7, 0, 0));
-        coordSomm.Add(13, new Vector3(7, -2, 0));
-        coordSomm.Add(14, new Vector3(7, -4, 0));
-        coordSomm.Add(15, new Vector3(10, 4, 0));
-        coordSomm.Add(16, new Vector3(10, 2, 0));
-        coordSomm.Add(17, new Vector3(10, 0, 0));
-        coordSomm.Add(18, new Vector3(10, -2, 0));
-        coordSomm.Add(19, new Vector3(10, -4, 0));
-        coordSomm.Add(20, new Vector3(13, 4, 0));
-        coordSomm.Add(21, new Vector3(13, 2, 0));
-        coordSomm.Add(22, new Vector3(13, 0, 0));
-        coordSomm.Add(23, new Vector3(13, -2, 0));
-        coordSomm.Add(24, new Vector3(13, -4, 0));
-        coordSomm.Add(25, new Vector3(16, 4, 0));
-        coordSomm.Add(26, new Vector3(16, 2, 0));
-        coordSomm.Add(27, new Vector3(16, 0, 0));
-        coordSomm.Add(28, new Vector3(16, -2, 0));
-        coordSomm.Add(29, new Vector3(16, -4, 0));
+	int posAct; //position actuelle de l'ufo
+	int goTo;
+	List<int> route = new List<int>(); //plan de route
+	Graph graph; //graph du jeu
+	public positions pos; //positions des sommets du graph
 
+
+	void Start()
+    {
+		GameObject thegrid = GameObject.Find("Sommets");
+		pos = thegrid.GetComponent<positions>();
 
 		const int inf = int.MaxValue; //infini
 		const int nbrSommets = 30;
+		posAct = 2;
 
-		Graph graph = new Graph(nbrSommets, new int[nbrSommets, nbrSommets]);
+		graph = new Graph(nbrSommets, new int[nbrSommets, nbrSommets]);
 		for (int i = 0; i < nbrSommets; i++)
 		{
 			for (int j = 0; j < nbrSommets; j++)
@@ -63,20 +41,37 @@ public class moveDijkstra : MonoBehaviour
 			graph.ponderation[int.Parse(subs[1]), int.Parse(subs[0])] = int.Parse(subs[2]);
 		}
 
+		/*
 		//liste des points du chemin
-		List<int> pluscourtchemin = graph.dijkstra(2, 5);
-		foreach (var item in pluscourtchemin)
+		route = graph.dijkstra(posAct, goTo);
+		foreach (var item in route)
 		{
 			Debug.Log(item);
 		}
+		*/
 
 	}
 
-    // Update is called once per frame
-    void Update()
-    {
+	void Update()
+	{
+		if (route.Count > 0)
+		{
+			transform.position = Vector3.MoveTowards(transform.position, pos.coordSomm[route[0]], 0.006f);
+			if (transform.position == pos.coordSomm[route[0]])
+			{
+				posAct = route[0];
+				route.RemoveAt(0);
+			}
+		}
+		
+	}
 
-    }
+
+	public void goToPoint(int arrivee)
+	{
+		route.Clear();
+		route = graph.dijkstra(posAct, arrivee);		
+	}
 
 	class Graph
 	{

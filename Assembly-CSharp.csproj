@@ -53,9 +53,10 @@
     <UnityVersion>2020.3.18f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\CreateCows.cs" />
     <Compile Include="Assets\Scripts\moveDijkstra.cs" />
+    <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\positions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
