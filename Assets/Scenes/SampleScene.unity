@@ -312,7 +312,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 511, y: 293}
+  m_AnchoredPosition: {x: 545.1603, y: 293}
   m_SizeDelta: {x: 198.6, y: 27.62}
   m_Pivot: {x: 0.500001, y: 0.5}
 --- !u!114 &66653197
@@ -5847,7 +5847,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 180, y: 292}
+  m_AnchoredPosition: {x: 221, y: 293}
   m_SizeDelta: {x: 192, y: 27.62}
   m_Pivot: {x: 0.500001, y: 0.5}
 --- !u!114 &1487825036
@@ -6864,7 +6864,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 519420031}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 10
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -7207,8 +7207,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6, y: 161}
-  m_SizeDelta: {x: 1276.9, y: 400.67}
+  m_AnchoredPosition: {x: 39.01, y: 161}
+  m_SizeDelta: {x: 1210.9, y: 400.67}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1951074371
 MonoBehaviour:
@@ -7243,10 +7243,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Save the space cows with your  space car !                                    
+  m_Text: 'Save the space cows with your  space car !                                  
     Scores
 
-    Ctrl to start                                                                       
+    Ctrl to start                                                                    
     CAR                                   UFO'
 --- !u!222 &1951074372
 CanvasRenderer:
