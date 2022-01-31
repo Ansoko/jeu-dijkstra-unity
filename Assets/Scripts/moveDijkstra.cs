@@ -15,48 +15,49 @@ public class moveDijkstra : MonoBehaviour
 	void Start()
     {
 		GameObject thegrid = GameObject.Find("Sommets");
-		pos = thegrid.GetComponent<positions>();
+		if (thegrid.TryGetComponent<positions>(out pos)){
 
-		const int inf = int.MaxValue; //infini
-		const int nbrSommets = 30;
-		posAct = 2;
+			const int inf = int.MaxValue; //infini
+			const int nbrSommets = 30;
+			posAct = 2;
 
-		graph = new Graph(nbrSommets, new int[nbrSommets, nbrSommets]);
-		for (int i = 0; i < nbrSommets; i++)
-		{
-			for (int j = 0; j < nbrSommets; j++)
+			graph = new Graph(nbrSommets, new int[nbrSommets, nbrSommets]);
+			for (int i = 0; i < nbrSommets; i++)
 			{
-				graph.ponderation[i, j] = inf;
+				for (int j = 0; j < nbrSommets; j++)
+				{
+					graph.ponderation[i, j] = inf;
+				}
+
 			}
 
-		}
+			string[] readText = File.ReadAllLines("distances.txt");
+			//Console.WriteLine(readText.Length);
+			//int nbrChemins = readText.Length;
+			foreach (string s in readText)
+			{
+				string[] subs = s.Split(' ');
+				graph.ponderation[int.Parse(subs[0]), int.Parse(subs[1])] = int.Parse(subs[2]);
+				graph.ponderation[int.Parse(subs[1]), int.Parse(subs[0])] = int.Parse(subs[2]);
+			}
 
-		string[] readText = File.ReadAllLines("distances.txt");
-		//Console.WriteLine(readText.Length);
-		//int nbrChemins = readText.Length;
-		foreach (string s in readText)
-		{
-			string[] subs = s.Split(' ');
-			graph.ponderation[int.Parse(subs[0]), int.Parse(subs[1])] = int.Parse(subs[2]);
-			graph.ponderation[int.Parse(subs[1]), int.Parse(subs[0])] = int.Parse(subs[2]);
+			/*
+			//liste des points du chemin
+			route = graph.dijkstra(posAct, goTo);
+			foreach (var item in route)
+			{
+				Debug.Log(item);
+			}
+			*/
 		}
-
-		/*
-		//liste des points du chemin
-		route = graph.dijkstra(posAct, goTo);
-		foreach (var item in route)
-		{
-			Debug.Log(item);
-		}
-		*/
-
 	}
 
 	void Update()
 	{
 		if (route.Count > 0)
 		{
-			transform.position = Vector3.MoveTowards(transform.position, pos.coordSomm[route[0]], 0.006f);
+			float step = 2f * Time.deltaTime;
+			transform.position = Vector3.MoveTowards(transform.position, pos.coordSomm[route[0]], step);
 			if (transform.position == pos.coordSomm[route[0]])
 			{
 				posAct = route[0];
